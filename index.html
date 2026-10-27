@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TaskFlow — organize suas tarefas e acompanhe seu progresso.">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+
+  <title>TaskFlow | Painel de produtividade</title>
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="#inicio" aria-label="TaskFlow, início">
+      <span class="brand-icon">T</span>
+      <span>taskflow<span class="brand-dot">.</span></span>
+    </a>
+
+    <p class="nav-label">MENU PRINCIPAL</p>
+
+    <nav class="navigation" aria-label="Navegação principal">
+      <a href="#inicio" class="nav-link active">
+        <span>▦</span> Visão geral
+      </a>
+      <a href="#tarefas" class="nav-link">
+        <span>☷</span> Minhas tarefas
+      </a>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="profile-avatar" aria-hidden="true">U</div>
+      <div class="profile-info">
+        <strong>Meu espaço</strong>
+        <span>Conta de demonstração</span>
+      </div>
+      <span class="online-dot" aria-label="Demonstração local"></span>
+    </div>
+  </aside>
+
+  <main class="main-content" id="inicio">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">SEU ESPAÇO DE TRABALHO</p>
+        <h1>Visão geral</h1>
+      </div>
+      <span class="demo-badge">● Modo demonstração</span>
+    </header>
+
+    <section class="welcome">
+      <div>
+        <p class="eyebrow light">UM PASSO DE CADA VEZ</p>
+        <h2>Transforme seus planos<br>em resultados.</h2>
+        <p>Organize suas prioridades e acompanhe sua evolução.</p>
+      </div>
+      <div class="welcome-decoration" aria-hidden="true">✳</div>
+    </section>
+
+    <section class="stats-grid" aria-label="Estatísticas das tarefas">
+      <article class="stat-card">
+        <div class="stat-top">
+          <span>Total de tarefas</span>
+          <span class="stat-icon purple">▤</span>
+        </div>
+        <strong id="total-count">0</strong>
+        <p>Tarefas cadastradas</p>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-top">
+          <span>Concluídas</span>
+          <span class="stat-icon green">✓</span>
+        </div>
+        <strong id="completed-count">0</strong>
+        <p>Tarefas finalizadas</p>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-top">
+          <span>Pendentes</span>
+          <span class="stat-icon orange">◷</span>
+        </div>
+        <strong id="pending-count">0</strong>
+        <p>Ainda por fazer</p>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-top">
+          <span>Progresso</span>
+          <span class="stat-icon blue">↗</span>
+        </div>
+        <strong id="progress-count">0%</strong>
+        <progress class="progress-track" id="progress-fill" max="100" value="0" aria-label="Percentual de tarefas concluídas">0%</progress>
+      </article>
+    </section>
+
+    <section class="task-panel" id="tarefas">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">ORGANIZAÇÃO</p>
+          <h2>Minhas tarefas</h2>
+        </div>
+        <button class="primary-button" id="open-form" type="button">
+          <span>+</span> Nova tarefa
+        </button>
+      </div>
+
+      <form id="task-form" class="task-form" hidden>
+        <div class="form-grid">
+          <div class="field full-width">
+            <label for="task-title">Nome da tarefa</label>
+            <input
+              id="task-title"
+              name="title"
+              type="text"
+              maxlength="120"
+              placeholder="Ex.: Estudar JavaScript"
+              autocomplete="off"
+              required
+            >
+          </div>
+
+          <div class="field">
+            <label for="task-category">Categoria</label>
+            <select id="task-category" name="category">
+              <option value="Estudos">Estudos</option>
+              <option value="Trabalho">Trabalho</option>
+              <option value="Pessoal">Pessoal</option>
+              <option value="Projetos">Projetos</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="task-priority">Prioridade</label>
+            <select id="task-priority" name="priority">
+              <option value="Baixa">Baixa</option>
+              <option value="Média" selected>Média</option>
+              <option value="Alta">Alta</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button class="secondary-button" id="cancel-form" type="button">
+            Cancelar
+          </button>
+          <button class="primary-button" type="submit">
+            Criar tarefa
+          </button>
+        </div>
+      </form>
+
+      <div class="toolbar">
+        <label class="search-box" for="task-search">
+          <span aria-hidden="true">⌕</span>
+          <input id="task-search" type="search"
+                 maxlength="120" placeholder="Pesquisar tarefas...">
+        </label>
+
+        <label class="filter-box" for="task-filter">
+          <span class="visually-hidden">Filtrar tarefas</span>
+          <select id="task-filter">
+            <option value="Todas">Todas as tarefas</option>
+            <option value="Pendentes">Pendentes</option>
+            <option value="Concluídas">Concluídas</option>
+            <option value="Alta">Prioridade alta</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="table-heading">
+        <span>TAREFA</span>
+        <span>CATEGORIA</span>
+        <span>PRIORIDADE</span>
+        <span>STATUS</span>
+        <span>AÇÕES</span>
+      </div>
+
+      <ul class="task-list" id="task-list" aria-label="Lista de tarefas"></ul>
+
+      <div id="empty-state" class="empty-state" hidden>
+        <span aria-hidden="true">✳</span>
+        <h3>Nenhuma tarefa encontrada</h3>
+        <p>Experimente outro filtro ou crie uma nova tarefa.</p>
+      </div>
+
+      <div class="panel-footer">
+        <span id="result-count">0 tarefas</span>
+        <span>Seus objetivos, no seu ritmo.</span>
+      </div>
+    </section>
+
+    <footer class="page-footer">
+      <span>TaskFlow © 2026</span>
+      <span>Protótipo educacional • Nenhum dado é enviado a um servidor.</span>
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>
