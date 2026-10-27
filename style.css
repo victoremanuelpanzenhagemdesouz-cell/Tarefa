@@ -642,6 +642,117 @@ button:disabled {
   color: var(--text);
 }
 
+.auth-screen {
+  display: grid;
+  min-height: 100vh;
+  align-content: center;
+  justify-items: center;
+  gap: 28px;
+  padding: 32px 18px;
+  background:
+    radial-gradient(circle at 12% 12%, rgb(102 88 232 / 10%), transparent 30%),
+    var(--background);
+}
+
+.auth-brand {
+  margin-bottom: 4px;
+}
+
+.auth-card {
+  width: min(100%, 440px);
+  padding: 34px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+  box-shadow: 0 18px 60px rgb(32 34 56 / 8%);
+}
+
+.auth-card h1 {
+  margin: 10px 0 8px;
+  font-size: 27px;
+  letter-spacing: -0.7px;
+}
+
+.auth-description {
+  margin: 0 0 24px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.auth-card form {
+  display: grid;
+  gap: 17px;
+}
+
+.auth-card .field input {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid #dedfeb;
+  border-radius: 8px;
+  background: white;
+  color: var(--text);
+}
+
+.auth-submit {
+  width: 100%;
+  min-height: 44px;
+  margin-top: 4px;
+}
+
+.auth-message {
+  min-height: 20px;
+  margin: 0 0 14px;
+  color: #3d6f5b;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.auth-message.is-error {
+  color: #bd3f50;
+}
+
+.auth-switch-copy {
+  margin: 22px 0 4px;
+  color: var(--muted);
+  font-size: 12px;
+  text-align: center;
+}
+
+.auth-switch {
+  display: block;
+  margin: 0 auto;
+  padding: 7px 10px;
+  border: 0;
+  background: transparent;
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.auth-switch:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
+.auth-footnote {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  text-align: center;
+}
+
+.account-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sign-out-button {
+  min-height: 36px;
+  padding: 8px 12px;
+  font-size: 11px;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -718,6 +829,11 @@ button:disabled {
 
   .topbar h1 {
     font-size: 24px;
+  }
+
+  .account-actions {
+    align-items: flex-end;
+    flex-direction: column;
   }
 
   .welcome {
@@ -806,6 +922,10 @@ button:disabled {
 }
 
 @media (max-width: 420px) {
+  .auth-card {
+    padding: 26px 20px;
+  }
+
   .demo-badge {
     max-width: 120px;
     font-size: 9px;

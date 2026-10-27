@@ -6,15 +6,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="TaskFlow — organize suas tarefas e acompanhe seu progresso.">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self'; img-src 'self' data:; connect-src 'self' https://fagybhkgwbfgtwpnwnhx.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
 
   <title>TaskFlow | Painel de produtividade</title>
 
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="supabase-config.js" defer></script>
   <script src="script.js" defer></script>
 </head>
 <body>
-  <aside class="sidebar">
+  <section class="auth-screen" id="auth-screen" aria-labelledby="auth-title">
+    <a class="brand auth-brand" href="#inicio" aria-label="TaskFlow">
+      <span class="brand-icon">T</span>
+      <span>taskflow<span class="brand-dot">.</span></span>
+    </a>
+    <div class="auth-card">
+      <p class="eyebrow">SEU ESPAÇO DE TRABALHO</p>
+      <h1 id="auth-title">Entre na sua conta</h1>
+      <p class="auth-description" id="auth-description">Acesse suas tarefas com seu email e senha.</p>
+      <p class="auth-message" id="auth-message" role="status" aria-live="polite"></p>
+      <form id="auth-form">
+        <div class="field">
+          <label for="auth-email">Email</label>
+          <input id="auth-email" name="email" type="email" maxlength="254" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="auth-password">Senha</label>
+          <input id="auth-password" name="password" type="password" minlength="8" maxlength="128" autocomplete="current-password" required>
+        </div>
+        <button class="primary-button auth-submit" id="auth-submit" type="submit">Entrar</button>
+      </form>
+      <p class="auth-switch-copy" id="auth-switch-copy">Ainda não tem uma conta?</p>
+      <button class="auth-switch" id="auth-switch" type="button">Criar conta</button>
+    </div>
+    <p class="auth-footnote">Suas tarefas são privadas e vinculadas à sua conta.</p>
+  </section>
+
+  <aside class="sidebar" id="app-sidebar" hidden>
     <a class="brand" href="#inicio" aria-label="TaskFlow, início">
       <span class="brand-icon">T</span>
       <span>taskflow<span class="brand-dot">.</span></span>
@@ -35,19 +64,22 @@
       <div class="profile-avatar" aria-hidden="true">U</div>
       <div class="profile-info">
         <strong>Meu espaço</strong>
-        <span>Conta de demonstração</span>
+        <span id="profile-email">Conta TaskFlow</span>
       </div>
       <span class="online-dot" aria-label="Demonstração local"></span>
     </div>
   </aside>
 
-  <main class="main-content" id="inicio">
+  <main class="main-content" id="inicio" hidden>
     <header class="topbar">
       <div>
         <p class="eyebrow">SEU ESPAÇO DE TRABALHO</p>
         <h1>Visão geral</h1>
       </div>
-      <span class="demo-badge">● Modo demonstração</span>
+      <div class="account-actions">
+        <span class="demo-badge">● Conta conectada</span>
+        <button class="secondary-button sign-out-button" id="sign-out" type="button">Sair</button>
+      </div>
     </header>
 
     <section class="welcome">
@@ -195,7 +227,7 @@
 
     <footer class="page-footer">
       <span>TaskFlow © 2026</span>
-      <span>Protótipo educacional • Nenhum dado é enviado a um servidor.</span>
+      <span>Tarefas vinculadas à sua conta Supabase.</span>
     </footer>
   </main>
 
